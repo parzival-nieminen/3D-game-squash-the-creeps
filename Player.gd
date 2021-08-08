@@ -1,5 +1,7 @@
 extends KinematicBody
 
+signal hit
+
 export var speed = 14.0
 export var jump_impulse = 20.0
 export var fall_acceleration = 75.0
@@ -41,3 +43,11 @@ func _physics_process(delta):
 			if Vector3.UP.dot(collision.normal) > 0.1:
 				mob.squash()
 				velocity.y = bounce_impulse
+
+func die():
+	emit_signal("hit")
+	queue_free()
+	
+
+func _on_MobDedector_body_entered(body):
+	die()
