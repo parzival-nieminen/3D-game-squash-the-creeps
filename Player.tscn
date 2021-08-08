@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://art/player.glb" type="PackedScene" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
@@ -7,6 +7,34 @@
 
 [sub_resource type="CylinderShape" id=2]
 height = 1.75789
+
+[sub_resource type="Animation" id=3]
+resource_name = "float"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/player:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pivot/player:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
+}
 
 [node name="Player" type="KinematicBody"]
 collision_mask = 6
@@ -29,5 +57,9 @@ collision_mask = 2
 [node name="CollisionShape" type="CollisionShape" parent="MobDedector"]
 transform = Transform( 1.03645, 0, 0, 0, 0.0972599, 0, 0, 0, 1.03645, 0, 0.384051, 0 )
 shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "float"
+anims/float = SubResource( 3 )
 
 [connection signal="body_entered" from="MobDedector" to="." method="_on_MobDedector_body_entered"]
